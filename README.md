@@ -15,12 +15,14 @@
 - Admins can manage departments, create teams, and assign users accordingly
 
 ### OKR Management
-- Admin capabilities:
-  - Create and assign OKRs to teams and individual users
-  - Update and delete OKRs
-- Employee capabilities:
-  - View assigned OKRs
-  - Track individual progress on key results
+
+#### Admin Capabilities:
+- Create and assign OKRs to teams and individual users
+- Update and delete OKRs
+
+#### Employee Capabilities:
+- View assigned OKRs
+- Track individual progress on key results
 
 ### Progress Tracking
 - Visual indicators for tracking the progress of each key result
@@ -61,40 +63,75 @@
 
 ---
 
-## Application Screenshots
+## How the App Works
 
-> Images are located in `/myokr-client/src/assets/`
+### Admin Flow
+1. Admin signs up or logs in.
+2. Admin can view and manage:
+   - **Departments**: Create/Edit/Delete departments
+   - **Teams**: Create teams under departments and assign leaders
+   - **Users**: All employees who signup are listed here
+   - **OKRs**: Create OKRs and assign to teams or individual employees
 
-### Landing Page  
-![Landing](./myokr-client/src/assets/landing.png)
-
-### Login  
-![Login](./myokr-client/src/assets/login.png)
-
-### Signup  
-![Signup](./myokr-client/src/assets/signup.png)
-
-### Admin – Departments  
-![Departments](./myokr-client/src/assets/admin_departments.png)
-
-### Admin – Teams  
-![Teams](./myokr-client/src/assets/admin_teams.png)
-
-### Admin – Users  
-![Users](./myokr-client/src/assets/admin_users.png)
-
-### Admin – OKRs  
-![OKRs](./myokr-client/src/assets/admin_okrs.png)
-
-### Employee Dashboard  
-![Employee Dashboard](./myokr-client/src/assets/employee_dashboard.png)
-
-### Employee OKRs  
-![Employee OKRs](./myokr-client/src/assets/employee_okrs.png)
+### Employee Flow
+1. Employee signs up or logs in.
+2. Redirected to employee dashboard showing:
+   - Their team and department details
+   - List of OKRs assigned to them
+   - Progress tracking for each key result
 
 ---
 
-## Security & Deployment Notes
+## Test Credentials
+
+### Admin
+- **Email:** `manoj@myokr.com`
+- **Password:** `Test123!`
+
+### Employees
+- `divya@myokr.com` - `Test123!`  
+- `santhosh@myokr.com` - `Test123!`  
+- `anjali@myokr.com` - `Test123!`  
+- `revathi@myokr.com` - `Test123!`  
+- `bhavya@myokr.com` - `Test123!`  
+- `shruthi@myokr.com` - `Test123!`  
+
+---
+
+## 📷 Application Screenshots
+
+> Images are located in `/myokr-client/src/assets/`
+
+- **Landing Page**  
+  ![Landing](./myokr-client/src/assets/landing.png)
+
+- **Login**  
+  ![Login](./myokr-client/src/assets/login.png)
+
+- **Signup**  
+  ![Signup](./myokr-client/src/assets/signup.png)
+
+- **Admin – Departments**  
+  ![Departments](./myokr-client/src/assets/admin_departments.png)
+
+- **Admin – Teams**  
+  ![Teams](./myokr-client/src/assets/admin_teams.png)
+
+- **Admin – Users**  
+  ![Users](./myokr-client/src/assets/admin_users.png)
+
+- **Admin – OKRs**  
+  ![OKRs](./myokr-client/src/assets/admin_okrs.png)
+
+- **Employee Dashboard**  
+  ![Employee Dashboard](./myokr-client/src/assets/employee_dashboard.png)
+
+- **Employee OKRs**  
+  ![Employee OKRs](./myokr-client/src/assets/employee_okrs.png)
+
+---
+
+## 🛡️ Security & Deployment Notes
 
 - Environment variables and sensitive data are handled via `.env` files and excluded from version control using `.gitignore`
 - MongoDB Atlas is used for remote database access during development
@@ -102,14 +139,8 @@
 
 ---
 
-## Acknowledgment
-
-This project was developed as part of the internship assessment for **ABEX Group**. I am grateful for the opportunity to work on a real-world full-stack application challenge that encompassed authentication, role-based dashboards, dynamic content management, and a polished user interface.
-
----
-
-## Author
+## 👨‍💻 Author
 
 **Manoj MV**  
-Email: [manojvelmurugan04@gmail.com](mailto:manojvelmurugan04@gmail.com)  
-GitHub: [https://github.com/Manoj-velmurugan](https://github.com/Manoj-velmurugan)
+📧 Email: [manojvelmurugan04@gmail.com](mailto:manojvelmurugan04@gmail.com)  
+🔗 GitHub: [https://github.com/Manoj-velmurugan](https://github.com/Manoj-velmurugan)
