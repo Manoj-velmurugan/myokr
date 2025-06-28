@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosInstance';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function Departments() {
