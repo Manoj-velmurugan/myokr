@@ -1,11 +1,19 @@
 import axios from 'axios';
 
-const instance = axios.create({
+const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true, // if you're using cookies
+  withCredentials: true, // Keep this if using cookies (optional)
 });
 
-export default instance;
+// Add Authorization header
+axiosInstance.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token'); // stored during login
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return config;
+});
+
+export default axiosInstance;
