@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from '../utils/axiosInstance'
+import axios from '../utils/axiosInstance';
 
 function Dashboard() {
   const [stats, setStats] = useState({ users: 0, teams: 0, departments: 0, okrs: 0 });
@@ -8,11 +8,24 @@ function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+          console.error('No token found');
+          return;
+        }
+
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
         const [usersRes, teamsRes, departmentsRes, okrsRes] = await Promise.all([
-          axios.get('/users'),
-          axios.get('/teams'),
-          axios.get('/departments'),
-          axios.get('/okrs'),
+          axios.get('/users', config),
+          axios.get('/teams', config),
+          axios.get('/departments', config),
+          axios.get('/okrs', config),
         ]);
 
         setStats({
@@ -34,7 +47,6 @@ function Dashboard() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h2>
 
