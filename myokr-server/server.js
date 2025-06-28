@@ -21,7 +21,7 @@ connectDB();
 
 // Middlewares
 app.use(cors({
-  origin: 'https://your-frontend.vercel.app', // or "*" for all, not safe in production
+  origin: 'https://myokr-two.vercel.app', // or "*" for all, not safe in production
   credentials: true,
 }));
 app.use(express.json());
