@@ -70,28 +70,28 @@ MyOKR is a modern full-stack **Objective & Key Results (OKR)** management system
 ![Landing](./myokr-client/src/assets/landing.png)
 
 ### 🔐 Login  
-![Login](./src/assets/login.png)
+![Login](./myokr-client/src/assets/login.png)
 
 ### 🔐 SignUp  
-![Login](./src/assets/signup.png)
+![Login](./myokr-client/src/assets/signup.png)
 
 ### 🏢 Admin-Departments  
-![Departments](./src/assets/admin_departments.png)
+![Departments](./myokr-client/src/assets/admin_departments.png)
 
 ### 🏢 Admin-Teams  
-![Departments](./src/assets/admin_teams.png)
+![Departments](./myokr-client/src/assets/admin_teams.png)
 
 ### 👥 Admin-Users  
-![Users](./src/assets/admin_users.png)
+![Users](./myokr-client/src/assets/admin_users.png)
 
 ### 📊 Admin-OKRs  
-![OKRs](./src/assets/admin_okrs.png)
+![OKRs](./myokr-client/src/assets/admin_okrs.png)
 
 ### 👨‍💼 Employee Dashboard  
-![Employee](./src/assets/employee_dashboard.png)
+![Employee](./myokr-client/src/assets/employee_dashboard.png)
 
 ### 👨‍💼 Employee OKRs  
-![Employee](./src/assets/employee_okrs.png)
+![Employee](./myokr-client/src/assets/employee_okrs.png)
 
 ---
 
