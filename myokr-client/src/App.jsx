@@ -10,12 +10,13 @@ import Users from './pages/Users';
 import OKRs from './pages/OKRs';
 
 import DashboardLayout from './components/DashboardLayout';
+import EmployeeDashboard from './pages/employee/EmployeeDashboard';
 import EmployeeDashboardLayout from './components/EmployeeDashboardLayout';
 
 import EmployeeOKRs from './pages/employee/EmployeeOKRs';
 
 import PrivateRoute from './components/PrivateRoute';
-import EmployeeDashboard from './pages/employee/employeeDashboard';
+
 
 function App() {
   return (

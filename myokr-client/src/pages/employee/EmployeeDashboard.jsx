@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from '../../utils/axiosInstance';
 import { jwtDecode } from 'jwt-decode';
 
-function employeeDashboard() {
+function EmployeeDashboard() {
   const [user, setUser] = useState(null);
   const [okrCount, setOkrCount] = useState(0);
 
@@ -61,4 +61,4 @@ function InfoCard({ title, value, color }) {
   );
 }
 
-export default employeeDashboard;
+export default EmployeeDashboard;
