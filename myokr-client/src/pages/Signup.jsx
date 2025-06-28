@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from '../utils/axiosInstance';
+import axios from '../utils/axiosInstance'; // ✅ using the axios instance
 import { jwtDecode } from 'jwt-decode';
 
 function Signup() {
@@ -22,26 +22,20 @@ function Signup() {
     setError('');
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', form, {
-        headers: { 'Content-Type': 'application/json' },
-      });
+      // ✅ Use axios instance (no need to set headers manually)
+      await axios.post('/auth/register', form);
 
-      const loginRes = await axios.post(
-        'http://localhost:5000/api/auth/login',
-        {
-          email: form.email,
-          password: form.password,
-        },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      );
+      const loginRes = await axios.post('/auth/login', {
+        email: form.email,
+        password: form.password,
+      });
 
       const token = loginRes.data.token;
       localStorage.setItem('token', token);
       const decoded = jwtDecode(token);
       const role = decoded.role;
 
+      // Navigate based on role
       if (role === 'admin') {
         navigate('/dashboard');
       } else {
@@ -65,7 +59,6 @@ function Signup() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Name */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Name</label>
             <input
@@ -78,7 +71,6 @@ function Signup() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Email</label>
             <input
@@ -91,7 +83,6 @@ function Signup() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Password</label>
             <input
@@ -104,7 +95,6 @@ function Signup() {
             />
           </div>
 
-          {/* Role */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Role</label>
             <select
@@ -118,7 +108,6 @@ function Signup() {
             </select>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded-lg transition"
