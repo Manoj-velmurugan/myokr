@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+const instance = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE_URL || 'https://myokr-backend-98gs.onrender.com/api',
 });
 
-axiosInstance.interceptors.request.use((config) => {
+instance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
@@ -12,4 +12,4 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export default axiosInstance;
+export default instance;
