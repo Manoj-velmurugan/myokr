@@ -8,7 +8,7 @@ import teamRoutes from './routes/teams.js';
 import departmentRoutes from './routes/departments.js';
 import userRoutes from './routes/users.js';
 import okrRoutes from './routes/okrs.js';
-import authRoutes from './routes/Auth.js'
+import authRoutes from './routes/auth.js'
 import employeeRoutes from './routes/employee.js';
 
 
