@@ -1,120 +1,115 @@
-# 🚀 MyOKR – OKR Management Platform
+# MyOKR – OKR Management Platform
 
-MyOKR is a modern full-stack **Objective & Key Results (OKR)** management system built as part of the **ABEX Full Stack Developer Internship Assessment**. It enables organizations to clearly define goals, assign them to teams and employees, and track progress through a clean and intuitive interface.
-
----
-
-## 🧩 Features
-
-### ✅ Authentication & Authorization
-- Login and Signup with secure JWT-based auth
-- Role-based access for **Admins** and **Employees**
-
-### 🏢 Organizational Hierarchy
-- Supports structure: **Organization → Departments → Teams → Users**
-- Admin can create departments, teams, and assign users
-
-### 🎯 OKRs Management
-- Admins can:
-  - Add team OKRs
-  - Assign OKRs to users
-  - Edit and delete OKRs
-- Employees can:
-  - View their assigned OKRs
-  - Track OKR progress
-
-### 📈 Progress Tracking
-- OKR cards show current progress visually
-- Supports checking completion levels for each key result
-
-### 🖥️ Admin Panel
-- Manage departments, teams, users, and OKRs
-- Search, filter, and edit/delete users
-- Smooth UI interactions with modals and feedback
-
-### 👨‍💼 Employee Dashboard
-- View team and department info
-- View all assigned OKRs in a dedicated panel
-
-### 🌐 Landing Page
-- Beautiful entry screen with tagline, admin panel preview, and login/signup links
+**MyOKR** is a full-stack Objective and Key Results (OKR) management platform developed as part of the **ABEX Full Stack Developer Internship Assessment**. The application allows organizations to define goals, assign them across teams and users, and monitor progress through a user-friendly interface.
 
 ---
 
-## ⚙️ Tech Stack
+## Features
 
-### 🔵 Frontend
-- **React.js** + **Tailwind CSS**
-- React Router DOM for routing
-- Responsive UI for admin and employee panels
+### Authentication & Authorization
+- Secure login and signup using JWT-based authentication
+- Role-based access control for administrators and employees
 
-### 🟢 Backend
-- **Node.js** + **Express.js**
-- REST API architecture
+### Organizational Hierarchy
+- Structured hierarchy: Organization → Departments → Teams → Users
+- Admins can manage departments, create teams, and assign users accordingly
 
-### 🗃️ Database
-- **MongoDB Atlas**
-- Mongoose for schema & model management
+### OKR Management
+- Admin capabilities:
+  - Create and assign OKRs to teams and individual users
+  - Update and delete OKRs
+- Employee capabilities:
+  - View assigned OKRs
+  - Track individual progress on key results
 
-### 🔐 Authentication
-- **JWT (JSON Web Tokens)** for session management
-- **bcrypt** for password hashing
+### Progress Tracking
+- Visual indicators for tracking the progress of each key result
+- Real-time updates on completion status
+
+### Admin Dashboard
+- Manage and monitor departments, teams, users, and OKRs
+- Includes search, filtering, editing, and deletion functionalities
+- Interactive UI with modals and feedback mechanisms
+
+### Employee Dashboard
+- Provides team and department details to the employee
+- Displays all assigned OKRs in a structured layout
+
+### Landing Page
+- Introductory screen with project overview, preview image, and login/signup access
 
 ---
 
-## 📸 Screenshots
+## Technology Stack
 
-> (Upload your screenshots to `/src/assets/` and update these paths below.)
+### Frontend
+- React.js
+- Tailwind CSS
+- React Router DOM for client-side routing
 
-### 🌟 Landing Page  
+### Backend
+- Node.js with Express.js
+- RESTful API design
+
+### Database
+- MongoDB Atlas
+- Mongoose for modeling and schema management
+
+### Authentication
+- JSON Web Tokens (JWT) for secure session handling
+- bcrypt for secure password hashing
+
+---
+
+## Application Screenshots
+
+> Images are located in `/myokr-client/src/assets/`
+
+### Landing Page  
 ![Landing](./myokr-client/src/assets/landing.png)
 
-### 🔐 Login  
+### Login  
 ![Login](./myokr-client/src/assets/login.png)
 
-### 🔐 SignUp  
-![Login](./myokr-client/src/assets/signup.png)
+### Signup  
+![Signup](./myokr-client/src/assets/signup.png)
 
-### 🏢 Admin-Departments  
+### Admin – Departments  
 ![Departments](./myokr-client/src/assets/admin_departments.png)
 
-### 🏢 Admin-Teams  
-![Departments](./myokr-client/src/assets/admin_teams.png)
+### Admin – Teams  
+![Teams](./myokr-client/src/assets/admin_teams.png)
 
-### 👥 Admin-Users  
+### Admin – Users  
 ![Users](./myokr-client/src/assets/admin_users.png)
 
-### 📊 Admin-OKRs  
+### Admin – OKRs  
 ![OKRs](./myokr-client/src/assets/admin_okrs.png)
 
-### 👨‍💼 Employee Dashboard  
-![Employee](./myokr-client/src/assets/employee_dashboard.png)
+### Employee Dashboard  
+![Employee Dashboard](./myokr-client/src/assets/employee_dashboard.png)
 
-### 👨‍💼 Employee OKRs  
-![Employee](./myokr-client/src/assets/employee_okrs.png)
-
----
-
-## 🛡️ Security & Deployment Notes
-
-- All sensitive info is stored in environment variables and ignored via `.gitignore`
-- Deployed using GitHub and MongoDB Atlas (development only)
-- Secrets like DB URIs are **revoked** after exposure alerts from GitHub
+### Employee OKRs  
+![Employee OKRs](./myokr-client/src/assets/employee_okrs.png)
 
 ---
 
-## 🙏 A Note of Thanks
+## Security & Deployment Notes
 
-I’d like to sincerely thank **Team ABEX** for providing this opportunity to build a real-world project as part of the internship assessment. This experience helped me implement a full-stack solution from scratch — both backend and frontend — with role-based workflows and modern UI/UX.
+- Environment variables and sensitive data are handled via `.env` files and excluded from version control using `.gitignore`
+- MongoDB Atlas is used for remote database access during development
+- All previously exposed secrets have been revoked and replaced with secure credentials
 
 ---
 
-## 👤 Author
+## Acknowledgment
+
+This project was developed as part of the internship assessment for **ABEX Group**. I am grateful for the opportunity to work on a real-world full-stack application challenge that encompassed authentication, role-based dashboards, dynamic content management, and a polished user interface.
+
+---
+
+## Author
 
 **Manoj MV**  
-📧 manojvelmurugan04@gmail.com 
-🔗 [GitHub Profile](https://github.com/Manoj-velmurugan)
-
----
-
-
+Email: [manojvelmurugan04@gmail.com](mailto:manojvelmurugan04@gmail.com)  
+GitHub: [https://github.com/Manoj-velmurugan](https://github.com/Manoj-velmurugan)
