@@ -67,7 +67,7 @@ MyOKR is a modern full-stack **Objective & Key Results (OKR)** management system
 > (Upload your screenshots to `/src/assets/` and update these paths below.)
 
 ### 🌟 Landing Page  
-![Landing](./src/assets/landing.png)
+![Landing](../src/assets/landing.pn)
 
 ### 🔐 Login  
 ![Login](./src/assets/login.png)
