@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import admin from '../assets/admin.png';
+import adminImg from '../assets/admin_dashboard';
 
 function Landing() {
   return (
@@ -49,7 +49,7 @@ function Landing() {
         </div>
         <div>
           <img
-            src={admin}
+            src={adminImg}
             alt="Admin Panel Screenshot"
             className="w-full max-w-xl rounded-2xl shadow-xl border border-gray-200"
           />
