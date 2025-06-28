@@ -1,10 +1,11 @@
 import express from 'express';
 import Department from '../models/Department.js';
+import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// GET all departments
-router.get('/', async (req, res) => {
+// ✅ GET all departments — protected for logged-in users
+router.get('/', protect, async (req, res) => {
   try {
     const departments = await Department.find().sort({ name: 1 });
     res.json(departments);
@@ -13,12 +14,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-// CREATE department
-router.post('/', async (req, res) => {
+// ✅ CREATE department — only admin allowed
+router.post('/', protect, authorizeRoles('admin'), async (req, res) => {
   try {
-    const newDepartment = new Department({
-      name: req.body.name,
-    });
+    const newDepartment = new Department({ name: req.body.name });
     await newDepartment.save();
     res.status(201).json(newDepartment);
   } catch (err) {
@@ -26,8 +25,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE department
-router.put('/:id', async (req, res) => {
+// ✅ UPDATE department — only admin allowed
+router.put('/:id', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     const updated = await Department.findByIdAndUpdate(
       req.params.id,
@@ -40,8 +39,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE department
-router.delete('/:id', async (req, res) => {
+// ✅ DELETE department — only admin allowed
+router.delete('/:id', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     await Department.findByIdAndDelete(req.params.id);
     res.status(204).end();

@@ -1,12 +1,13 @@
 import express from 'express';
-import mongoose from 'mongoose';    // <-- Add this import
+import mongoose from 'mongoose';
 import Team from '../models/Team.js';
 import User from '../models/User.js';
+import { protect, authorizeRoles } from '../middleware/authMiddleware.js'; // ✅ Add middleware
 
 const router = express.Router();
 
-// GET all teams with department & leader populated
-router.get('/', async (req, res) => {
+// ✅ GET all teams (admin or employee — just protect)
+router.get('/', protect, async (req, res) => {
   try {
     const teams = await Team.find()
       .populate('department', 'name')
@@ -18,8 +19,8 @@ router.get('/', async (req, res) => {
   }
 });
 
-// CREATE a new team
-router.post('/', async (req, res) => {
+// ✅ CREATE a new team (admin only)
+router.post('/', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     const { name, department, leader } = req.body;
 
@@ -27,7 +28,6 @@ router.post('/', async (req, res) => {
 
     const savedTeam = await newTeam.save();
 
-    // Update user's team reference if leader is assigned
     if (leader) {
       await User.findByIdAndUpdate(leader, { team: savedTeam._id });
     }
@@ -43,8 +43,8 @@ router.post('/', async (req, res) => {
   }
 });
 
-// UPDATE a team
-router.put('/:id', async (req, res) => {
+// ✅ UPDATE a team (admin only)
+router.put('/:id', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     const { name, department, leader } = req.body;
 
@@ -76,7 +76,6 @@ router.put('/:id', async (req, res) => {
       }
     }
 
-    // Re-query to get populated document
     const populatedTeam = await Team.findById(updatedTeam._id)
       .populate('department', 'name')
       .populate('leader', 'name email');
@@ -88,9 +87,8 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-
-// DELETE a team
-router.delete('/:id', async (req, res) => {
+// ✅ DELETE a team (admin only)
+router.delete('/:id', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     await Team.findByIdAndDelete(req.params.id);
     res.status(204).end();
