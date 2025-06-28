@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from '../utils/axiosInstance';
-import userIcon from '../assets/user-icon.svg'; 
+import userIcon from '../assets/user-icon.svg';
 
 function Users() {
   const [users, setUsers] = useState([]);
@@ -91,16 +91,16 @@ function Users() {
     setName(user.name);
     setEmail(user.email);
     setPosition(user.position);
-    setSelectedTeam(user.team?._id || '');
+    setSelectedTeam(user.team && user.team._id ? user.team._id : '');
     setEditUserId(user._id);
     setIsEditMode(true);
     setShowForm(true);
   };
 
   const filteredUsers = users.filter(user => {
-    const matchesTeam = filterTeam ? user.team?._id === filterTeam : true;
+    const matchesTeam = filterTeam ? (user.team && user.team._id === filterTeam) : true;
     const matchesPosition = filterPosition
-      ? user.position?.toLowerCase().includes(filterPosition.toLowerCase())
+      ? user.position && user.position.toLowerCase().includes(filterPosition.toLowerCase())
       : true;
     return matchesTeam && matchesPosition;
   });
@@ -217,7 +217,7 @@ function Users() {
               <p className="text-sm text-gray-500">{user.email}</p>
               <p className="text-sm text-gray-600 mt-1">{user.position || 'No position'}</p>
               <p className="text-sm text-gray-500">
-                {user.team?.name ? `Team: ${user.team.name}` : 'No team'}
+                {user.team && user.team.name ? `Team: ${user.team.name}` : 'No team'}
               </p>
             </div>
             {!showDeleteMode && (
