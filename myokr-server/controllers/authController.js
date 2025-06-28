@@ -1,70 +1,132 @@
-// controllers/authController.js
-import User from '../models/User.js';
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import axiosInstance from '../utils/axiosInstance';
+import jwtDecode from 'jwt-decode';
 
-// Register
-export const register = async (req, res) => {
-  try {
-    const { name, email, password, role } = req.body;
+function Signup() {
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'employee',
+  });
+  const [error, setError] = useState('');
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) return res.status(400).json({ message: 'User already exists' });
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
 
-    const newUser = new User({ name, email, password: hashedPassword, role });
-    await newUser.save();
+    try {
+      // Register user and get token
+      const res = await axiosInstance.post('/auth/register', form);
 
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (err) {
-    console.error('Registration error:', err);
-    res.status(500).json({ message: 'Server error during registration' });
-  }
-};
+      const token = res.data.token;
+      localStorage.setItem('token', token);
 
-// Login
-export const login = async (req, res) => {
-  const { email, password } = req.body;
+      const decoded = jwtDecode(token);
+      const role = decoded.role;
 
-  try {
-    const user = await User.findOne({ email });
-    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
-
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
-
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: '1d' }
-    );
-
-    res.status(200).json({
-      token,
-      user: {
-        _id: user._id, // ✅ Corrected here
-        name: user.name,
-        email: user.email,
-        role: user.role
+      // Redirect based on role
+      if (role === 'admin') {
+        navigate('/dashboard');
+      } else {
+        navigate('/employee/dashboard');
       }
-    });
 
-  } catch (err) {
-    console.error('Login error:', err);
-    res.status(500).json({ message: 'Server error during login' });
-  }
-};
+    } catch (err) {
+      console.error('Signup error:', err);
+      setError(err.response?.data?.message || 'Signup failed. Please try again.');
+    }
+  };
 
-// Get current user (protected)
-export const getCurrentUser = async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select('-password');
-    if (!user) return res.status(404).json({ message: 'User not found' });
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-green-100 flex items-center justify-center px-4">
+      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-xl">
+        <h2 className="text-3xl font-bold text-center text-purple-700 mb-6">
+          Create Your Account
+        </h2>
 
-    res.status(200).json(user);
-  } catch (err) {
-    console.error('Fetch current user error:', err);
-    res.status(500).json({ message: 'Server error' });
-  }
-};
+        {error && (
+          <p className="text-red-500 text-sm mb-4 text-center">{error}</p>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Name */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+              required
+            />
+          </div>
+
+          {/* Role */}
+          <div>
+            <label className="block mb-1 font-medium text-gray-700">Role</label>
+            <select
+              name="role"
+              value={form.role}
+              onChange={handleChange}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            >
+              <option value="employee">Employee</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+
+          {/* Submit */}
+          <button
+            type="submit"
+            className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded-lg transition"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        <p className="text-sm text-center mt-6 text-gray-600">
+          Already have an account?{' '}
+          <Link to="/login" className="text-purple-600 hover:underline font-medium">
+            Log In
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default Signup;
