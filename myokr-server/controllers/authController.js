@@ -27,15 +27,15 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      console.log('❌ User not found for email:', email);
+      // console.log('❌ User not found for email:', email);
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
-    console.log('🔐 Login password (plain):', password);
-    console.log('🔒 Stored password (hashed):', user.password);
+    // console.log('🔐 Login password (plain):', password);
+    // console.log('🔒 Stored password (hashed):', user.password);
 
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log('✅ Passwords match:', isMatch);
+    // console.log('✅ Passwords match:', isMatch);
 
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 

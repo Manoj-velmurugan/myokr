@@ -20,7 +20,10 @@ const app = express();
 connectDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors({
+  origin: 'https://your-frontend.vercel.app', // or "*" for all, not safe in production
+  credentials: true,
+}));
 app.use(express.json());
 
 // API Routes
@@ -38,5 +41,4 @@ app.use('/api/employee', employeeRoutes);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server started on port ${PORT}`);
 });

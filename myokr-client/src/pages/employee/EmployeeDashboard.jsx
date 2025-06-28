@@ -12,7 +12,6 @@ function EmployeeDashboard() {
         const token = localStorage.getItem('token');
         
         const decoded = jwtDecode(token);
-        console.log('Decoded token:', decoded);
 
         const userId = decoded.id;
 
