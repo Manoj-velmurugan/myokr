@@ -11,10 +11,11 @@ import OKRs from './pages/OKRs';
 
 import DashboardLayout from './components/DashboardLayout';
 import EmployeeDashboardLayout from './components/EmployeeDashboardLayout';
-import EmployeeDashboard from './pages/employee/employeeDashboard';
+
 import EmployeeOKRs from './pages/employee/EmployeeOKRs';
 
 import PrivateRoute from './components/PrivateRoute';
+import EmployeeDashboard from './pages/employee/employeeDashboard';
 
 function App() {
   return (
@@ -50,7 +51,7 @@ function App() {
             </PrivateRoute>
           }
         >
-          <Route path="dashboard" element={<EmployeeDashboard />} />
+          <Route path="dashboard" element={<EmployeeDashboard/>} />
           <Route path="okrs" element={<EmployeeOKRs />} />
         </Route>
       </Routes>
