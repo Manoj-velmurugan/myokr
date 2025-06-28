@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import adminImg from '../assets/admin_dashboard';
+import adminImg from '../assets/admin_dashboard.png';
 
 function Landing() {
   return (
