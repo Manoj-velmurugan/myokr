@@ -1,3 +1,4 @@
+// controllers/authController.js
 import User from '../models/User.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -10,7 +11,9 @@ export const register = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: 'User already exists' });
 
-    const newUser = new User({ name, email, password, role });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({ name, email, password: hashedPassword, role });
     await newUser.save();
 
     res.status(201).json({ message: 'User registered successfully' });
@@ -26,17 +29,9 @@ export const login = async (req, res) => {
 
   try {
     const user = await User.findOne({ email });
-    if (!user) {
-      // console.log('❌ User not found for email:', email);
-      return res.status(400).json({ message: 'Invalid email or password' });
-    }
-
-    // console.log('🔐 Login password (plain):', password);
-    // console.log('🔒 Stored password (hashed):', user.password);
+    if (!user) return res.status(400).json({ message: 'Invalid email or password' });
 
     const isMatch = await bcrypt.compare(password, user.password);
-    // console.log('✅ Passwords match:', isMatch);
-
     if (!isMatch) return res.status(400).json({ message: 'Invalid email or password' });
 
     const token = jwt.sign(
@@ -45,7 +40,15 @@ export const login = async (req, res) => {
       { expiresIn: '1d' }
     );
 
-    res.status(200).json({ token, user: { id: user._id, name: user.name, role: user.role } });
+    res.status(200).json({
+      token,
+      user: {
+        _id: user._id, // ✅ Corrected here
+        name: user.name,
+        email: user.email,
+        role: user.role
+      }
+    });
 
   } catch (err) {
     console.error('Login error:', err);
