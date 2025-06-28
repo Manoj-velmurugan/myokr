@@ -21,9 +21,14 @@ connectDB();
 
 // Middlewares
 app.use(cors({
-  origin: 'https://myokr-two.vercel.app', // or "*" for all, not safe in production
+  origin: [
+    'https://myokr-two.vercel.app',
+    'https://myokr-git-main-manoj-mvs-projects.vercel.app',
+    'http://localhost:5173'
+  ],
   credentials: true,
 }));
+
 app.use(express.json());
 
 // API Routes
