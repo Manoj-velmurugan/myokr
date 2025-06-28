@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import axios from './axiosInstance'; // use the axiosInstance here
 
 function Login() {
   const navigate = useNavigate();
@@ -17,21 +17,19 @@ function Login() {
     setError('');
 
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', form, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+      const res = await axios.post('/auth/login', form); // baseURL is already set
 
-      const token = res.data.token;
-      const user = res.data.user;
+      const { token, user } = res.data;
 
+      // Save token and userId
       localStorage.setItem('token', token);
       localStorage.setItem('userId', user._id);
 
+      // Decode the token
       const decoded = jwtDecode(token);
       const role = decoded.role;
 
+      // Navigate based on role
       if (role === 'admin') {
         navigate('/dashboard');
       } else {
@@ -56,7 +54,6 @@ function Login() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Email */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Email</label>
             <input
@@ -69,7 +66,6 @@ function Login() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="block mb-1 font-medium text-gray-700">Password</label>
             <input
@@ -82,7 +78,6 @@ function Login() {
             />
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded-lg transition"
