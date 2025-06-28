@@ -18,8 +18,8 @@ function Departments() {
 
   const fetchData = async () => {
     try {
-      const depRes = await axios.get('http://localhost:5000/api/departments');
-      const teamRes = await axios.get('http://localhost:5000/api/teams');
+      const depRes = await axios.get('/departments');
+      const teamRes = await axios.get('/teams');
       setDepartments(depRes.data);
       setTeams(teamRes.data);
     } catch (err) {
@@ -32,9 +32,9 @@ function Departments() {
     e.preventDefault();
     try {
       if (isEdit) {
-        await axios.put(`http://localhost:5000/api/departments/${editId}`, { name });
+        await axios.put(`/departments/${editId}`, { name });
       } else {
-        await axios.post('http://localhost:5000/api/departments', { name });
+        await axios.post('/departments', { name });
       }
       setShowForm(false);
       setName('');
@@ -59,7 +59,7 @@ function Departments() {
     try {
       await Promise.all(
         selectedDepartments.map((id) =>
-          axios.delete(`http://localhost:5000/api/departments/${id}`)
+          axios.delete(`/departments/${id}`)
         )
       );
       setSelectedDepartments([]);
