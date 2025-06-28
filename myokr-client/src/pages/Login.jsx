@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import axios from './axiosInstance'; // use the axiosInstance here
+import axios from '../utils/axiosInstance'; // use the axiosInstance here
 
 function Login() {
   const navigate = useNavigate();
