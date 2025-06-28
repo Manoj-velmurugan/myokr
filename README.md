@@ -1,6 +1,6 @@
 # MyOKR – OKR Management Platform
 
-**MyOKR** is a full-stack Objective and Key Results (OKR) management platform developed as part of the **ABEX Full Stack Developer Internship Assessment**. The application allows organizations to define goals, assign them across teams and users, and monitor progress through a user-friendly interface.
+**MyOKR** is a full-stack Objective and Key Results (OKR) management platform. The application allows organizations to define goals, assign them across teams and users, and monitor progress through a user-friendly interface.
 
 ---
 
