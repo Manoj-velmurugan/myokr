@@ -1,23 +1,40 @@
-// routes/auth.js
-import express from 'express';
-import { register, login, getCurrentUser } from '../controllers/authController.js';
-import { protect } from '../middleware/authMiddleware.js';
-
-const router = express.Router();
-
-router.post('/register', register);
-router.post('/login', login);
-router.get('/me', protect, getCurrentUser);
-
+// controllers/authController.js
 import User from '../models/User.js';
-router.delete('/delete-all', async (req, res) => {
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+
+export const login = async (req, res) => {
+  const { email, password } = req.body;
+
   try {
-    await User.deleteMany({});
-    res.send({ message: 'All users deleted' });
+    // Check if user exists
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ message: 'Invalid credentials' });
+
+    // Compare password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
+
+    // Create token
+    const token = jwt.sign(
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1d' }
+    );
+
+    // ✅ Return both token and full user object with `_id`
+    res.status(200).json({
+      token,
+      user: {
+        _id: user._id, // 🔥 IMPORTANT
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      }
+    });
+
   } catch (err) {
-    res.status(500).send({ message: 'Error deleting users' });
+    console.error('Login error:', err);
+    res.status(500).json({ message: 'Server error' });
   }
-});
-
-
-export default router;
+};
