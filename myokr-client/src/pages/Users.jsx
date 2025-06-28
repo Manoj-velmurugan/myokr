@@ -124,15 +124,6 @@ function Users() {
           >
             {showDeleteMode ? 'Cancel Delete' : 'Delete Users'}
           </button>
-          <button
-            className="bg-white shadow-lg rounded px-4 py-2 hover:bg-purple-700 hover:text-white"
-            onClick={() => {
-              resetForm();
-              setShowForm(!showForm);
-            }}
-          >
-            {showForm ? 'Cancel' : '+ Add User'}
-          </button>
         </div>
       </div>
 
