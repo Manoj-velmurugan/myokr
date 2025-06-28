@@ -4,7 +4,6 @@ import axios from '../utils/axiosInstance';
 function Dashboard() {
   const [stats, setStats] = useState({ users: 0, teams: 0, departments: 0, okrs: 0 });
   const [recentOkrs, setRecentOkrs] = useState([]);
-  const [loading, setLoading] = useState(true); // 🌀 Loading state
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -40,21 +39,11 @@ function Dashboard() {
         setRecentOkrs(recent);
       } catch (err) {
         console.error('Error fetching dashboard data:', err);
-      } finally {
-        setLoading(false); // 🔁 Done loading
       }
     };
 
     fetchStats();
   }, []);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-gray-100">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-purple-500 border-solid"></div>
-      </div>
-    );
-  }
 
   return (
     <div className="flex min-h-screen bg-gray-100">
