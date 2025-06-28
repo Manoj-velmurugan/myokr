@@ -1,0 +1,23 @@
+// routes/auth.js
+import express from 'express';
+import { register, login, getCurrentUser } from '../controllers/authController.js';
+import { protect } from '../middleware/authMiddleware.js';
+
+const router = express.Router();
+
+router.post('/register', register);
+router.post('/login', login);
+router.get('/me', protect, getCurrentUser);
+
+import User from '../models/User.js';
+router.delete('/delete-all', async (req, res) => {
+  try {
+    await User.deleteMany({});
+    res.send({ message: 'All users deleted' });
+  } catch (err) {
+    res.status(500).send({ message: 'Error deleting users' });
+  }
+});
+
+
+export default router;
