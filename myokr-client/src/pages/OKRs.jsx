@@ -40,6 +40,7 @@ function OKRs() {
   useEffect(() => {
     if (selectedTeam) {
       const filtered = users.filter(user => {
+        if (!user.team) return false; // fix: skip if team is null
         const teamId = typeof user.team === 'object' ? user.team._id : user.team;
         return teamId === selectedTeam;
       });
