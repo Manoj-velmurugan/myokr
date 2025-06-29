@@ -17,7 +17,7 @@ function EmployeeSidebar() {
   return (
     <aside className="w-64 bg-white shadow-md p-6 flex flex-col justify-between h-screen">
       <div>
-        <h2 className="text-2xl font-bold text-purple-600 mb-4">MyOKR</h2>
+        <h2 className="text-2xl font-bold text-purple-600 mb-4 ml-14 sm:ml-0">MyOKR</h2>
         <nav className="space-y-4">
           {links.map(({ path, label }) => (
             <Link
