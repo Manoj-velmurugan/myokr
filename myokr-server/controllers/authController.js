@@ -68,7 +68,15 @@ export const login = async (req, res) => {
       return res.status(400).json({ message: 'Invalid email or password' });
     }
 
+    // 🔍 Log the stored and entered password
+    console.log('🔐 Stored hashed password:', user.password);
+    console.log('🔑 Entered plain password:', password);
+
     const isMatch = await bcrypt.compare(password, user.password);
+
+    // 🔍 Log the result of comparison
+    console.log('🔍 Password match:', isMatch);
+
     if (!isMatch) {
       console.warn('❌ Incorrect password for:', email);
       return res.status(400).json({ message: 'Invalid email or password' });
@@ -96,6 +104,7 @@ export const login = async (req, res) => {
     res.status(500).json({ message: 'Server error during login' });
   }
 };
+
 
 // GET CURRENT USER
 export const getCurrentUser = async (req, res) => {
