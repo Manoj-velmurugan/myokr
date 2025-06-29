@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import {jwtDecode} from 'jwt-decode'; // ✅ Corrected here
+import { jwtDecode } from 'jwt-decode'; // ✅ Corrected
 import axios from '../utils/axiosInstance';
 
 function Login() {
@@ -17,6 +17,7 @@ function Login() {
     setError('');
 
     try {
+      console.log("Submitting login form:", form); // ✅ Debug log
       const res = await axios.post('/auth/login', form);
 
       const { token, user } = res.data;
@@ -40,7 +41,11 @@ function Login() {
 
     } catch (err) {
       console.error('Login error:', err);
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+      setError(
+        err?.response?.data?.message ||
+        err?.message ||
+        'Login failed. Please try again.'
+      );
     }
   };
 
