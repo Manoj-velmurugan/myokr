@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import jwtDecode from 'jwt-decode'; // ✅ Corrected here
+import {jwtDecode} from 'jwt-decode'; // ✅ Corrected here
 import axios from '../utils/axiosInstance';
 
 function Login() {

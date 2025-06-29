@@ -175,6 +175,7 @@ function Teams() {
       </AnimatePresence>
 
       {/* Team Cards */}
+      <div className="max-h-[75vh] overflow-y-auto pr-1 custom-scrollbar pb-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {teams.map((team) => (
           <div key={team._id} className="bg-white shadow-md rounded-xl p-4 relative">
@@ -201,6 +202,7 @@ function Teams() {
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );

@@ -91,22 +91,22 @@ function Users() {
     setName(user.name);
     setEmail(user.email);
     setPosition(user.position);
-    setSelectedTeam(user.team && user.team._id ? user.team._id : '');
+    setSelectedTeam(user.team?._id || '');
     setEditUserId(user._id);
     setIsEditMode(true);
     setShowForm(true);
   };
 
   const filteredUsers = users.filter(user => {
-    const matchesTeam = filterTeam ? (user.team && user.team._id === filterTeam) : true;
+    const matchesTeam = filterTeam ? user.team?._id === filterTeam : true;
     const matchesPosition = filterPosition
-      ? user.position && user.position.toLowerCase().includes(filterPosition.toLowerCase())
+      ? user.position?.toLowerCase().includes(filterPosition.toLowerCase())
       : true;
     return matchesTeam && matchesPosition;
   });
 
   return (
-    <div>
+    <div className="px-4 sm:px-6">
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Users</h2>
         <div className="flex gap-4">
@@ -192,44 +192,46 @@ function Users() {
         />
       </div>
 
-      {/* User Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredUsers.map(user => (
-          <div
-            key={user._id}
-            className={`bg-white shadow-lg rounded-xl p-4 flex items-start gap-4 relative ${showDeleteMode ? 'pr-10' : ''}`}
-          >
-            {showDeleteMode && (
-              <input
-                type="checkbox"
-                checked={selectedUsers.includes(user._id)}
-                onChange={() => toggleUserSelection(user._id)}
-                className="mt-2"
+      {/* Scrollable User Cards */}
+      <div className="max-h-[75vh] overflow-y-auto pr-1 custom-scrollbar pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredUsers.map(user => (
+            <div
+              key={user._id}
+              className={`bg-white shadow-lg rounded-xl p-4 flex items-start gap-4 relative ${showDeleteMode ? 'pr-10' : ''}`}
+            >
+              {showDeleteMode && (
+                <input
+                  type="checkbox"
+                  checked={selectedUsers.includes(user._id)}
+                  onChange={() => toggleUserSelection(user._id)}
+                  className="mt-2"
+                />
+              )}
+              <img
+                src={userIcon}
+                alt="User Icon"
+                className="w-15 h-14 rounded-full object-cover"
               />
-            )}
-            <img
-              src={userIcon}
-              alt="User Icon"
-              className="w-15 h-14 rounded-full object-cover"
-            />
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-800">{user.name}</h3>
-              <p className="text-sm text-gray-500">{user.email}</p>
-              <p className="text-sm text-gray-600 mt-1">{user.position || 'No position'}</p>
-              <p className="text-sm text-gray-500">
-                {user.team && user.team.name ? `Team: ${user.team.name}` : 'No team'}
-              </p>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold text-gray-800">{user.name}</h3>
+                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm text-gray-600 mt-1">{user.position || 'No position'}</p>
+                <p className="text-sm text-gray-500">
+                  {user.team?.name ? `Team: ${user.team.name}` : 'No team'}
+                </p>
+              </div>
+              {!showDeleteMode && (
+                <button
+                  className="absolute top-2 right-2 text-sm text-blue-600 hover:underline"
+                  onClick={() => startEditUser(user)}
+                >
+                  Edit
+                </button>
+              )}
             </div>
-            {!showDeleteMode && (
-              <button
-                className="absolute top-2 right-2 text-sm text-blue-600 hover:underline"
-                onClick={() => startEditUser(user)}
-              >
-                Edit
-              </button>
-            )}
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );
