@@ -1,13 +1,11 @@
-import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
 import express from 'express';
+import bcrypt from 'bcryptjs';
+import { protect, authorizeRoles } from '../middleware/authMiddleware.js';
 import User from '../models/User.js';
 
 const router = express.Router();
 
-// ✅ GET all users with team details (Admin only)
-// routes/users.js
-// GET all users
-// GET only employees
+// ✅ GET all employees (Admin only)
 router.get('/', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     const users = await User.find({ role: 'employee' }).populate('team', 'name');
@@ -18,15 +16,23 @@ router.get('/', protect, authorizeRoles('admin'), async (req, res) => {
   }
 });
 
-
-
-
 // ✅ CREATE a new user (Admin only)
 router.post('/', protect, authorizeRoles('admin'), async (req, res) => {
   try {
     const { name, email, position, team, role, password } = req.body;
 
-    const newUser = new User({ name, email, position, team, role, password });
+    // 🔐 Hash the password before saving
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newUser = new User({
+      name,
+      email,
+      position,
+      team,
+      role,
+      password: hashedPassword,
+    });
+
     const savedUser = await newUser.save();
     const populatedUser = await User.findById(savedUser._id).populate('team', 'name');
 
