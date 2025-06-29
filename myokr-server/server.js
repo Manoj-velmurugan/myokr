@@ -22,12 +22,14 @@ connectDB();
 // Middlewares
 app.use(cors({
   origin: [
+    'https://myokr-client.vercel.app',  // ✅ Add this!
     'https://myokr-two.vercel.app',
     'https://myokr-git-main-manoj-mvs-projects.vercel.app',
     'http://localhost:5173'
   ],
   credentials: true,
 }));
+
 
 app.use(express.json());
 
