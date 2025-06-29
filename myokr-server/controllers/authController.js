@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 export const register = async (req, res) => {
   try {
     const { name, email, password, role } = req.body;
-    console.log('Registering user:', { name, email, role }); // 🪵
+    console.log('Registering user:', { name, email, role });
 
     if (!name || !email || !password || !role) {
       return res.status(400).json({ message: 'All fields are required' });
@@ -17,12 +17,11 @@ export const register = async (req, res) => {
       return res.status(400).json({ message: 'User already exists' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
+    // 👇 No manual hashing here!
     const newUser = new User({
       name,
       email,
-      password: hashedPassword,
+      password, // Will be hashed by the pre('save') hook
       role,
     });
 
