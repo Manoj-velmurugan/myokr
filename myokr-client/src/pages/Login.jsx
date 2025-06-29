@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
-import axios from '../utils/axiosInstance'; // axiosInstance with baseURL + token header
+import jwtDecode from 'jwt-decode'; // ✅ Corrected here
+import axios from '../utils/axiosInstance';
 
 function Login() {
   const navigate = useNavigate();
@@ -19,8 +19,6 @@ function Login() {
     try {
       const res = await axios.post('/auth/login', form);
 
-      console.log('✅ Login Response:', res.data); // 👈 Check this in browser DevTools
-
       const { token, user } = res.data;
 
       if (!token || !user) {
@@ -28,17 +26,12 @@ function Login() {
         return;
       }
 
-      // ✅ Save token and user ID to localStorage
       localStorage.setItem('token', token);
       localStorage.setItem('userId', user._id);
 
-      // ✅ Decode token to get role
       const decoded = jwtDecode(token);
       const role = decoded.role;
 
-      console.log('🎫 JWT Decoded:', decoded); // 👈 See if token contains role
-
-      // ✅ Navigate based on role
       if (role === 'admin') {
         navigate('/dashboard');
       } else {
@@ -46,7 +39,7 @@ function Login() {
       }
 
     } catch (err) {
-      console.error('❌ Login error:', err);
+      console.error('Login error:', err);
       setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
     }
   };
