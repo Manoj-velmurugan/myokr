@@ -7,6 +7,7 @@ function Login() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false); // ✅ Added loading state
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -15,6 +16,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setLoading(true); // ✅ Start loading
 
     try {
       console.log("Submitting login form:", form); // ✅ Debug log
@@ -24,6 +26,7 @@ function Login() {
 
       if (!token || !user) {
         setError('Login failed. Invalid response from server.');
+        setLoading(false);
         return;
       }
 
@@ -38,7 +41,6 @@ function Login() {
       } else {
         navigate('/employee/dashboard');
       }
-
     } catch (err) {
       console.error('Login error:', err);
       setError(
@@ -46,6 +48,8 @@ function Login() {
         err?.message ||
         'Login failed. Please try again.'
       );
+    } finally {
+      setLoading(false); // ✅ Stop loading
     }
   };
 
@@ -85,9 +89,35 @@ function Login() {
 
           <button
             type="submit"
-            className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded-lg transition"
+            disabled={loading}
+            className="w-full bg-purple-700 hover:bg-purple-800 text-white font-semibold py-2 rounded-lg transition disabled:opacity-50 flex items-center justify-center gap-2"
           >
-            Login
+            {loading ? (
+              <>
+                <svg
+                  className="w-5 h-5 animate-spin text-white"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  />
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  />
+                </svg>
+                Logging in...
+              </>
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
 
