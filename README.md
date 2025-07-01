@@ -94,7 +94,11 @@
 - `anjali@myokr.com` - `Test123!`  
 - `revathi@myokr.com` - `Test123!`  
 - `bhavya@myokr.com` - `Test123!`  
-- `shruthi@myokr.com` - `Test123!`  
+- `shruthi@myokr.com` - `Test123!`
+
+###
+You can access the live version of **MyOKR** here:  
+🔗 [https://myokr-two.vercel.app/](https://myokr-two.vercel.app/)
 
 ---
 
